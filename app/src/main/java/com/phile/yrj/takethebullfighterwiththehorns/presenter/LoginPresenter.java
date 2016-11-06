@@ -1,13 +1,10 @@
 package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 
-import com.phile.yrj.takethebullfighterwiththehorns.LoginApplication;
 import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
-import com.phile.yrj.takethebullfighterwiththehorns.model.User;
 
 /**
  * @author Yeray Ruiz Juárez
@@ -24,6 +21,8 @@ public class LoginPresenter implements ILoginMvp.Presenter{
 
     public LoginPresenter(ILoginMvp.View view){
         this.view = view;
+        idViewEmail = R.id.tilEmail_Login;
+        idViewPass = R.id.tilPass_Login;
     }
     @Override
     public void validateCredentials(String email, String pass) {
@@ -32,20 +31,18 @@ public class LoginPresenter implements ILoginMvp.Presenter{
         String error;
         int idView;
         int result;
-        idViewEmail = R.id.tilEmail;
-        idViewPass = R.id.tilPass;
 
         if (TextUtils.isEmpty(_email)){
             result = ILoginMvp.EMAIL_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_email);
+            error = ((Context)view).getResources().getString(R.string.data_empty_email_login);
             idView = idViewEmail;
         } else if (TextUtils.isEmpty(_pass)){
             result = ILoginMvp.PASS_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_pass);
+            error = ((Context)view).getResources().getString(R.string.data_empty_pass_login);
             idView = idViewPass;
         } else {
             //Fields are not empty, so now we check with database
-            result = checkLoginDB(email,pass);
+            result = databaseLogin(email,pass);
             if (result == ILoginMvp.INCORRECT){
                 error = ((Context)view).getResources().getString(R.string.incorrect_login);
                 idView = IDVIEWTOAST;
@@ -68,8 +65,9 @@ public class LoginPresenter implements ILoginMvp.Presenter{
         }
     }
 
-    private int checkLoginDB(String email, String pass) {
-        int result = ILoginMvp.CORRECT;;
+    @Override
+    public int databaseLogin(String email, String pass) {
+        int result = ILoginMvp.CORRECT;
         boolean correct = true;
         boolean error = false;
         //TODO Database connection

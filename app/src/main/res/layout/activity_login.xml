@@ -10,21 +10,90 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.phile.yrj.takethebullfighterwiththehorns.Login_Activity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lyNonRegister_Login"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvNonRegister1_text"
+            android:id="@+id/tvNonRegister1_Login"
+            android:linksClickable="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvNonRegister2_text"
+            android:id="@+id/tvNonRegister2_Login"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            style="@style/tvLink" />
+    </LinearLayout>
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:id="@+id/ivLogo"
-        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/lyNonRegister_Login"
+        android:id="@+id/lyLoginOptions_Login"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
+        <Button
+            android:text="@string/btSignUp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btSignUp_Login"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+        <Button
+            android:text="@string/btSubmit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btLogin_Login"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvForgotPass_Login"
+        android:layout_above="@id/lyLoginOptions_Login"
+        android:text="@string/tvForgotPass_text"
+        style="@style/tvLink"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/tvForgotPass_Login"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/tilPass_Login"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/error"
+        app:hintTextAppearance="@style/hint">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:id="@+id/etPass"
+            android:ems="10"
+            android:hint="@string/etPass_hint"/>
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/tilEmail"
-        android:layout_below="@id/ivLogo"
+        android:id="@+id/tilEmail_Login"
+        android:layout_above="@id/tilPass_Login"
         app:errorEnabled="true"
         app:errorTextAppearance="@style/error"
         app:hintTextAppearance="@style/hint"
@@ -41,74 +110,12 @@
             android:hint="@string/etEmail_hint"/>
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tilEmail"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/tilPass"
-        app:errorEnabled="true"
-        app:errorTextAppearance="@style/error"
-        app:hintTextAppearance="@style/hint">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword"
-            android:id="@+id/etPass"
-            android:ems="10"
-            android:hint="@string/etPass_hint"/>
-    </android.support.design.widget.TextInputLayout>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/tvForgotPass"
-    android:layout_below="@id/tilPass"
-    android:text="@string/tvForgotPass_text"
-    style="@style/tvLink"
-    android:layout_alignParentRight="true"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_below="@id/tvForgotPass"
-    android:id="@+id/lyLoginButtons"
-    android:layout_marginTop="15dp"
-    android:layout_marginBottom="5dp"
-    android:gravity="center">
-    <Button
-        android:text="@string/btSubmit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btSubmit"
-        android:layout_centerHorizontal="true"/>
-    <Button
-        android:text="@string/btSignUp_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btSignUp"
-        android:layout_centerHorizontal="true"/>
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lyLoginNonRegister"
-        android:orientation="horizontal"
-        android:layout_below="@id/lyLoginButtons"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvNonRegister1_text"
-            android:id="@+id/tvNonRegister1"
-            android:linksClickable="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvNonRegister2_text"
-            android:id="@+id/tvNonRegister2"
-            android:layout_marginLeft="3dp"
-            style="@style/tvLink" />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/ivLogo_Login"
+        android:layout_above="@id/tilEmail_Login"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Logo of the game" />
 </RelativeLayout>

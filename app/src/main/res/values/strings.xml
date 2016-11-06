@@ -5,6 +5,18 @@
     <string name="btSubmit_text">Conectar</string>
     <string name="btSignUp_text">Registrarse</string>
     <string name="tvNonRegister1_text">O puede continuar sin registrarse pulsando</string>
-    <string name="tvNonRegister2_text"><u>aquí</u></string>
-    <string name="tvForgotPass_text"><b>¿Has olvidado la contraseña?</b></string>
+    <string name="tvNonRegister2_text">aquí</string>
+    <string name="tvForgotPass_text">¿Has olvidado la contraseña?</string>
+    <string name="etEmailSingUp_hint">Introduce un correo electrónico</string>
+    <string name="etPassSingUp_hint">Introduce una contraseña</string>
+    <string name="etPassAgainSingUp_hint">Introduce la contraseña de nuevo</string>
+    <string name="etBirthdaySignUp_hint">Selecciona tu fecha de nacimiento</string>
+    <string name="tvGemderSignUp_text">Género</string>
+    <string name="rbGenderMaleSignUp_text">Hombre</string>
+    <string name="rbGenderFemaleSignUp_text">Mujer</string>
+    <string name="rbGenderOtherSignUp_text">Otro</string>
+    <string name="etUserSingUp_hint">Introduce un nombre de usuario</string>
+    <string name="btSignUpActivity_text">Registrarse</string>
+    <string name="datetimepicker_cancel">Cancelar</string>
+    <string name="datetimepicker_ok">Ok</string>
 </resources>

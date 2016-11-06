@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="data_empty_email">El campo email no puede estar vacío</string>
-    <string name="data_empty_pass">El campo contraseña no puede estar vacío</string>
+    <!-- Login_Activity -->
+    <string name="data_empty_email_login">No has introducido ninguna dirección de correo</string>
+    <string name="data_empty_pass_login">No has introducido ninguna contraseña</string>
     <string name="incorrect_login">El email y/o la contraseña son incorrectos</string>
     <string name="no_connection_login">No se ha podido conectar con la base de datos</string>
+    <!-- SignUp_Activity-->
+    <string name="data_empty_signup">No has introducido nada</string>
+    <string name="data_empty_birthday_signup">No has seleccionado una fecha</string>
+    <string name="data_empty_gender_signup">No has seleccionado un género</string>
+    <string name="user_length_signup">Tiene que tener una longitud entre 5 y 16</string>
+    <string name="pass_length_signup">Tiene que tener una longitud entre 5 y 20</string>
+    <string name="char_pass_signup">La contraseña no puede contener: //TODO</string>
+    <string name="different_pass_signup">Las contraseñas no coinciden</string>
+    <string name="user_used_signup">El nombre de usuario se encuentra en uso</string>
+    <string name="email_used_signup">El email se encuentra en uso</string>
+    <string name="no_connection_signup">No se ha podido conectar con la base de datos</string>
 </resources>

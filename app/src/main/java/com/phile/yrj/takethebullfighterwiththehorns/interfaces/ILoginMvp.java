@@ -17,5 +17,6 @@ public interface ILoginMvp {
     }
     interface Presenter{
         void validateCredentials(String email, String pass);
+        int databaseLogin(String email, String pass);
     }
 }
