@@ -3,9 +3,12 @@ package com.phile.yrj.takethebullfighterwiththehorns;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,7 +23,6 @@ import com.phile.yrj.takethebullfighterwiththehorns.presenter.SignUpPresenter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.View {
@@ -43,7 +45,9 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         presenter = new SignUpPresenter(this);
-       // getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         tilUser = (TextInputLayout) findViewById(R.id.tilUser_SignUp);
         tilPass = (TextInputLayout) findViewById(R.id.tilPass_SignUp);
@@ -148,6 +152,18 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
             case LoginPresenter.IDVIEWTOAST:
                 Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
                 break;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //NavUtils.navigateUpFromSameTask(this);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

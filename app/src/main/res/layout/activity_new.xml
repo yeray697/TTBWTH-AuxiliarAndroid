@@ -10,4 +10,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.phile.yrj.takethebullfighterwiththehorns.New_Activity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTitle_New" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvBody_New" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/tvDate_new" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorDivider"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvNew_New"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lyComment_New"
+                android:gravity="bottom"
+                android:layout_gravity="bottom">
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btSendComment_New"
+                    android:background="@mipmap/ic_launcher"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/etComment_New"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="true"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/etComment_New_hint"
+                    android:layout_toLeftOf="@id/btSendComment_New"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

@@ -100,10 +100,11 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
         tvNonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                presenter.nonPassLogin();
             }
         });
     }
+
 
     @Override
     public void setMessageError(String messageError, int idView) {

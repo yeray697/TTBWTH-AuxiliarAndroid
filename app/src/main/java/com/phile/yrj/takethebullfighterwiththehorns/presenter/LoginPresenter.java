@@ -1,8 +1,11 @@
 package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
+import com.phile.yrj.takethebullfighterwiththehorns.Main_Activity;
+import com.phile.yrj.takethebullfighterwiththehorns.NewsTab_Fragment;
 import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
 
@@ -54,9 +57,8 @@ public class LoginPresenter implements ILoginMvp.Presenter{
                 error = "";
                 idView = IDVIEWCORRECT;
                 //TODO Open a new activity
-                //((LoginApplication)((Context)view).getApplicationContext()).setUser(new User(_email, _pass));
-                //Intent intent = new Intent((Context)view,Product_Activity.class);
-                //((Context)view).startActivity(intent);
+                //((Login_Application)((Context)view).getApplicationContext()).setUser(new User(_email, _pass));
+                login();
             }
         }
         //If there is an error, we set it on the view
@@ -73,7 +75,7 @@ public class LoginPresenter implements ILoginMvp.Presenter{
         //TODO Database connection
         if (correct){
             //TODO set user in context
-            //((LoginApplication)((Context)view).getApplicationContext()).setUser(new User(_email, _pass));
+            //((Login_Application)((Context)view).getApplicationContext()).setUser(new User(_email, _pass));
         } else { //Incorrect and/or error
             if (error) { //Connection error
                 result = ILoginMvp.CONNECTIONERROR;
@@ -82,5 +84,15 @@ public class LoginPresenter implements ILoginMvp.Presenter{
             }
         }
         return result;
+    }
+
+    @Override
+    public void nonPassLogin() {
+        login();
+    }
+
+    private void login() {
+        Intent intent = new Intent((Context)view,Main_Activity.class);
+        ((Context)view).startActivity(intent);
     }
 }
