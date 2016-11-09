@@ -21,4 +21,5 @@
     <string name="datetimepicker_ok">Ok</string>
     <string name="title_activity_new_">New_Activity</string>
     <string name="etComment_New_hint">Comentario...</string>
+    <string name="tvComments_New_text">Comentarios</string>
 </resources>

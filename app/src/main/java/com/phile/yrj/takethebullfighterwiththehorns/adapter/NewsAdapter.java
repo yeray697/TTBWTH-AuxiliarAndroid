@@ -23,10 +23,10 @@ import java.io.InputStream;
  * Created by yeray697 on 7/11/16.
  */
 
-public class NewAdapter extends ArrayAdapter<New> {
+public class NewsAdapter extends ArrayAdapter<New> {
 
 
-    public NewAdapter(Context context) {
+    public NewsAdapter(Context context) {
         super(context, R.layout.item_new_list_row,((Login_Application)context.getApplicationContext()).getNews());
     }
 
@@ -34,7 +34,7 @@ public class NewAdapter extends ArrayAdapter<New> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View item = convertView;
-        ProductHolder productHolder;
+        NewsHolder newsHolder;
         if (item == null) {
             //1.Create an inflater object that it is initialized to the Context LayoutInflater
             //LayoutInflater inflater = LayoutInflater.from(context);
@@ -43,24 +43,24 @@ public class NewAdapter extends ArrayAdapter<New> {
             //2. Inflate the view. Create memory in View Object that contains XML widgets
             item = inflater.inflate(R.layout.item_new_list_row, null);
             //3. Setting widgets
-            productHolder = new ProductHolder();
-            productHolder.img = (ImageView) item.findViewById(R.id.imgNew_Row);
-            productHolder.tvName = (TextView) item.findViewById(R.id.tvTitleNew_Row);
-            productHolder.tvDate = (TextView) item.findViewById(R.id.tvDateNew_Row);
-            item.setTag(productHolder);
+            newsHolder = new NewsHolder();
+            newsHolder.img = (ImageView) item.findViewById(R.id.imgNew_Row);
+            newsHolder.tvName = (TextView) item.findViewById(R.id.tvTitleNew_Row);
+            newsHolder.tvDate = (TextView) item.findViewById(R.id.tvDateNew_Row);
+            item.setTag(newsHolder);
         }else
-            productHolder = (ProductHolder) item.getTag();
+            newsHolder = (NewsHolder) item.getTag();
         //Setting data adapter to widgets
-        new DownloadImageTask(productHolder.img).execute(getItem(position).getImgUrl());
-        productHolder.tvName.setText(getItem(position).getTitle());
-        productHolder.tvDate.setText(getItem(position).getFormatedDate());
+        new DownloadImageTask(newsHolder.img).execute(getItem(position).getImgUrl());
+        newsHolder.tvName.setText(getItem(position).getTitle());
+        newsHolder.tvDate.setText(getItem(position).getFormatedDate());
 
         return item;
     }
     /**
      * Internal classh that contains XML file widgets
      */
-    class ProductHolder{
+    class NewsHolder {
         TextView tvName;
         TextView tvDate;
         ImageView img;

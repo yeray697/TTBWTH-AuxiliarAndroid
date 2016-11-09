@@ -7,11 +7,9 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.phile.yrj.takethebullfighterwiththehorns.adapter.NewAdapter;
+import com.phile.yrj.takethebullfighterwiththehorns.adapter.NewsAdapter;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
 
 /**
@@ -19,19 +17,20 @@ import com.phile.yrj.takethebullfighterwiththehorns.model.New;
  */
 
 public class NewsTab_Fragment extends ListFragment {
-    NewAdapter adapter;
+    NewsAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_news_tab, container,false);
-        adapter = new NewAdapter(getActivity().getApplicationContext());
+        adapter = new NewsAdapter(getActivity().getApplicationContext());
         updateList();
         return v;
     }
 
     private void updateList(){
         setListAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

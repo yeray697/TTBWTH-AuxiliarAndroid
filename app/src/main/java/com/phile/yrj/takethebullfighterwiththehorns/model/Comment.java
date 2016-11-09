@@ -1,5 +1,7 @@
 package com.phile.yrj.takethebullfighterwiththehorns.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,13 +12,15 @@ import java.util.Date;
 
 public class Comment {
     private int id;
-    private String iduser;
+    private String username;
+    private String idnew;
     private String message;
     private Date date;
 
-    public Comment(int id, String iduser, String message, Date date){
+    public Comment(int id, String username, String idnew, String message, Date date){
         this.id = id;
-        this.iduser = iduser;
+        this.username = username;
+        this.idnew = idnew;
         this.message = message;
         this.date = date;
     }
@@ -30,13 +34,22 @@ public class Comment {
             this.id = id;
     }
 
-    public String getIdUser() {
-        return this.iduser;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setIdUser(String iduser) {
-        if(this.iduser != iduser)
-            this.iduser = iduser;
+    public void setUsername(String iduser) {
+        if(this.username != iduser)
+            this.username = iduser;
+    }
+
+    public String getIdnew() {
+        return this.idnew;
+    }
+
+    public void setIdnew(String idnew) {
+        if(this.idnew != idnew)
+            this.idnew = idnew;
     }
 
     public String getMessage() {
@@ -55,5 +68,11 @@ public class Comment {
     public void setDate(Date date) {
         if (this.date != date)
             this.date = date;
+    }
+
+    public String getFormatedDate(){
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String result = df.format(this.date);
+        return result;
     }
 }

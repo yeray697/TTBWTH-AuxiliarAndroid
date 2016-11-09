@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.phile.yrj.takethebullfighterwiththehorns.Login_Application;
 import com.phile.yrj.takethebullfighterwiththehorns.Main_Activity;
 import com.phile.yrj.takethebullfighterwiththehorns.NewsTab_Fragment;
 import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
+import com.phile.yrj.takethebullfighterwiththehorns.model.User;
 
 /**
  * @author Yeray Ruiz Juárez
@@ -75,7 +77,7 @@ public class LoginPresenter implements ILoginMvp.Presenter{
         //TODO Database connection
         if (correct){
             //TODO set user in context
-            //((Login_Application)((Context)view).getApplicationContext()).setUser(new User(_email, _pass));
+            ((Login_Application)((Context)view).getApplicationContext()).setUser(new User(1, email,email, pass));
         } else { //Incorrect and/or error
             if (error) { //Connection error
                 result = ILoginMvp.CONNECTIONERROR;

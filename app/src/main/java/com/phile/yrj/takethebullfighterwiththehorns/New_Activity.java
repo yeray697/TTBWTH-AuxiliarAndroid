@@ -3,9 +3,18 @@ package com.phile.yrj.takethebullfighterwiththehorns;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.phile.yrj.takethebullfighterwiththehorns.adapter.CommentsAdapterRecycler;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.INewMvp;
 import com.phile.yrj.takethebullfighterwiththehorns.model.Comment;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
@@ -16,6 +25,12 @@ import java.util.ArrayList;
 public class New_Activity extends AppCompatActivity implements INewMvp.View{
     INewMvp.Presenter presenter;
     TextView tvTitle, tvBody, tvDate;
+    RecyclerView rvComments;
+    EditText etComment;
+    Button btSendComment;
+    CommentsAdapterRecycler adapter;
+    New newSelected;
+    RelativeLayout rlComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +43,37 @@ public class New_Activity extends AppCompatActivity implements INewMvp.View{
         tvTitle = (TextView) findViewById(R.id.tvTitle_New);
         tvBody = (TextView) findViewById(R.id.tvBody_New);
         tvDate = (TextView) findViewById(R.id.tvDate_new);
+        rvComments = (RecyclerView) findViewById(R.id.rvComments_New);
         ArrayList<Comment> comments;
-        New newSelecter = getIntent().getParcelableExtra("new");
-        tvTitle.setText(newSelecter.getTitle());
-        tvBody.setText(newSelecter.getBody());
-        tvDate.setText(newSelecter.getFormatedDate());
+        btSendComment = (Button) findViewById(R.id.btSendComment_New);
+        etComment = (EditText) findViewById(R.id.etComment_New);
+        rlComment = (RelativeLayout) findViewById(R.id.rlComment_New);
+        newSelected = getIntent().getParcelableExtra("new");
+        tvTitle.setText(newSelected.getTitle());
+        tvBody.setText(newSelected.getBody());
+        tvDate.setText(newSelected.getFormatedDate());
+        adapter = new CommentsAdapterRecycler(this,newSelected.getId());
+        rvComments.setLayoutManager(new LinearLayoutManager(this));
+        rvComments.setAdapter(adapter);
+        btSendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(etComment.getText())) {
+                    if (presenter.publishComment(etComment.getText().toString(), newSelected.getId())) {
+
+                        adapter = new CommentsAdapterRecycler(New_Activity.this, newSelected.getId());
+                        rvComments.setAdapter(adapter);
+                        etComment.setText("");
+                    }
+                }
+            }
+        });
+        if (((Login_Application)this.getApplicationContext()).getUser() == null){
+            rlComment.setVisibility(View.GONE);
+        } else {
+            rlComment.setVisibility(View.VISIBLE);
+        }
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -46,5 +84,10 @@ public class New_Activity extends AppCompatActivity implements INewMvp.View{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void setMessageError(String messageError) {
+        Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
     }
 }
