@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvCommentMessage_New"
-        android:textColor="@color/colorPrimaryText"
-        android:paddingBottom="5dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvCommentMessage_New"
-        android:id="@+id/tvCommentName_New"
-        android:textColor="@color/colorSecondaryText"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvCommentDate_New"
-        android:layout_below="@id/tvCommentMessage_New"
-        android:layout_toRightOf="@id/tvCommentName_New"
-        android:layout_toEndOf="@id/tvCommentName_New"
-        android:textColor="@color/colorSecondaryText"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorDivider"
-        android:layout_below="@id/tvCommentName_New"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        android:id="@+id/viewSeparatorComment_New"/>
-</RelativeLayout>
+        android:id="@+id/cvComment_Row"
+        android:layout_marginBottom="5dp">
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCommentMessage_New"
+                    android:textColor="@color/colorPrimaryText"
+                    android:paddingBottom="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvCommentMessage_New"
+                    android:id="@+id/tvCommentName_New"
+                    android:textColor="@color/colorSecondaryText"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCommentDate_New"
+                    android:layout_below="@id/tvCommentMessage_New"
+                    android:layout_toRightOf="@id/tvCommentName_New"
+                    android:layout_toEndOf="@id/tvCommentName_New"
+                    android:textColor="@color/colorSecondaryText" />
+            </RelativeLayout>
+    </android.support.v7.widget.CardView>

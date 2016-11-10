@@ -42,10 +42,10 @@ public class CommentsAdapterRecycler extends RecyclerView.Adapter<CommentsAdapte
         holder.tvName.setText(comments.get(position).getUsername());
         holder.tvMessage.setText(comments.get(position).getMessage());
         holder.tvDate.setText(comments.get(position).getFormatedDate());
-        if (this.comments.size() == (position + 1)) //It is the last one
+        /*if (this.comments.size() == (position + 1)) //It is the last one
             holder.viewSeparatorComment.setVisibility(View.GONE);
         else
-            holder.viewSeparatorComment.setVisibility(View.VISIBLE);
+            holder.viewSeparatorComment.setVisibility(View.VISIBLE);*/
     }
 
     @Override
@@ -57,14 +57,14 @@ public class CommentsAdapterRecycler extends RecyclerView.Adapter<CommentsAdapte
         TextView tvName;
         TextView tvMessage;
         TextView tvDate;
-        View viewSeparatorComment;
+        //View viewSeparatorComment;
 
         public CommentViewHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvCommentName_New);
             tvMessage = (TextView) itemView.findViewById(R.id.tvCommentMessage_New);
             tvDate = (TextView) itemView.findViewById(R.id.tvCommentDate_New);
-            viewSeparatorComment = (View) itemView.findViewById(R.id.viewSeparatorComment_New);
+            //viewSeparatorComment = (View) itemView.findViewById(R.id.viewSeparatorComment_New);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
