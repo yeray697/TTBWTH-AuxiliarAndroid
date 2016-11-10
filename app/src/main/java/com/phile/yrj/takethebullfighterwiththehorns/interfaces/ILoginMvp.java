@@ -14,6 +14,7 @@ public interface ILoginMvp {
 
     interface View{
         void setMessageError(String messageError, int idView);
+        void login();
     }
     interface Presenter{
         void validateCredentials(String email, String pass);

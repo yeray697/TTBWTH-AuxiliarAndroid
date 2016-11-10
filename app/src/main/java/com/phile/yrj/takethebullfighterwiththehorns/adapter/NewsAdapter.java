@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.phile.yrj.takethebullfighterwiththehorns.Login_Application;
 import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
@@ -25,9 +26,11 @@ import java.io.InputStream;
 
 public class NewsAdapter extends ArrayAdapter<New> {
 
+    Context context;
 
     public NewsAdapter(Context context) {
         super(context, R.layout.item_new_list_row,((Login_Application)context.getApplicationContext()).getNews());
+        this.context = context;
     }
 
     @NonNull
@@ -51,7 +54,8 @@ public class NewsAdapter extends ArrayAdapter<New> {
         }else
             newsHolder = (NewsHolder) item.getTag();
         //Setting data adapter to widgets
-        new DownloadImageTask(newsHolder.img).execute(getItem(position).getImgUrl());
+        //new DownloadImageTask(newsHolder.img).execute(getItem(position).getImgUrl());
+        Picasso.with(this.context).load(getItem(position).getImgUrl()).error(R.mipmap.ic_launcher).into(newsHolder.img);
         newsHolder.tvName.setText(getItem(position).getTitle());
         newsHolder.tvDate.setText(getItem(position).getFormatedDate());
 

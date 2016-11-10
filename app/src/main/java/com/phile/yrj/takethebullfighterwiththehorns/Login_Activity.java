@@ -1,5 +1,6 @@
 package com.phile.yrj.takethebullfighterwiththehorns;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -119,5 +120,11 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
                 Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void login() {
+        Intent intent = new Intent(this,Main_Activity.class);
+        this.startActivity(intent);
     }
 }

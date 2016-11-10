@@ -11,9 +11,10 @@
     <string name="data_empty_gender_signup">No has seleccionado un género</string>
     <string name="user_length_signup">Tiene que tener una longitud entre 5 y 16</string>
     <string name="pass_length_signup">Tiene que tener una longitud entre 5 y 20</string>
-    <string name="char_pass_signup">La contraseña no puede contener: //TODO</string>
     <string name="different_pass_signup">Las contraseñas no coinciden</string>
     <string name="user_used_signup">El nombre de usuario se encuentra en uso</string>
     <string name="email_used_signup">El email se encuentra en uso</string>
     <string name="no_connection_signup">No se ha podido conectar con la base de datos</string>
+    <string name="invalid_email_signup">Email inválido</string>
+    <string name="user_chars_signup">Carácteres inválidos</string>
 </resources>

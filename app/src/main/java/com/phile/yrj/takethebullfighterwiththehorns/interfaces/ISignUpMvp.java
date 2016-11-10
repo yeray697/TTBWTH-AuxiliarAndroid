@@ -17,20 +17,21 @@ public interface ISignUpMvp {
     int DIFFERENT_PASS = 7;
     int USER_LENGTH = 8;
     int PASS_LENGTH = 9;
-    int PASS_CHAR = 10;
-    int CONNECTIONERROR = 11;
-    int USER_USED = 12;
-    int EMAIL_USED = 13;
+    int CONNECTIONERROR = 10;
+    int USER_USED = 11;
+    int EMAIL_USED = 12;
+    int USER_CHARS = 13;
 
     int MINUSER_LENGTH = 5;
     int MAXUSER_LENGTH = 16;
     int MINPASS_LENGTH = 5;
     int MAXPASS_LENGTH = 20;
     //TODO password regular expesion
-    String PASS_REGEX = "~";
+    String USER_REGEX = "^[a-z0-9_-]{"+MINUSER_LENGTH+","+MAXUSER_LENGTH+"}$";
 
     interface View{
         void setMessageError(String messageError, int idView);
+        void finish();
     }
     interface Presenter{
         void validateCredentials(String user, String email, String pass, String passAgain,String birthday,char gender);

@@ -7,7 +7,9 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -68,6 +70,11 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
                datePickerDialog.show();
             }
         });
+        tilUser.getEditText().addTextChangedListener(new MyTextWatcher(tilUser));
+        tilPass.getEditText().addTextChangedListener(new MyTextWatcher(tilPass));
+        tilPassAgain.getEditText().addTextChangedListener(new MyTextWatcher(tilPassAgain));
+        tilEmail.getEditText().addTextChangedListener(new MyTextWatcher(tilEmail));
+        tilBirthday.getEditText().addTextChangedListener(new MyTextWatcher(tilBirthday));
         etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -164,6 +171,29 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    class MyTextWatcher implements TextWatcher{
+
+        TextInputLayout view;
+
+        public MyTextWatcher(TextInputLayout view){
+            this.view = view;
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            view.setErrorEnabled(false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
         }
     }
 }

@@ -3,6 +3,7 @@ package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Patterns;
 
 import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
@@ -45,6 +46,7 @@ public class SignUpPresenter implements ISignUpMvp.Presenter{
         int idView;
         int result;
 
+        //TODO separate "If"s by fields, to show the maximum of errors
         if (TextUtils.isEmpty(_user)){
             result = ISignUpMvp.USER_EMPTY;
             error = ((Context)view).getResources().getString(R.string.data_empty_signup);
@@ -53,9 +55,13 @@ public class SignUpPresenter implements ISignUpMvp.Presenter{
             result = ISignUpMvp.USER_LENGTH;
             error = ((Context)view).getResources().getString(R.string.user_length_signup);
             idView = idViewUser;
-        } else if (TextUtils.isEmpty(_email)){
+        } else if (!_user.matches(ISignUpMvp.USER_REGEX)){
+            result = ISignUpMvp.USER_CHARS;
+            error = ((Context)view).getResources().getString(R.string.user_chars_signup);
+            idView = idViewUser;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(_email).matches()){
             result = ISignUpMvp.EMAIL_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_signup);
+            error = ((Context)view).getResources().getString(R.string.invalid_email_signup);
             idView = idViewEmail;
         } else if (TextUtils.isEmpty(_pass)){
             result = ISignUpMvp.PASS1_EMPTY;
@@ -69,10 +75,6 @@ public class SignUpPresenter implements ISignUpMvp.Presenter{
             result = ISignUpMvp.PASS2_EMPTY;
             error = ((Context)view).getResources().getString(R.string.data_empty_signup);
             idView = idViewPass2;
-        } else if (!_pass.matches(ISignUpMvp.PASS_REGEX)){
-            result = ISignUpMvp.PASS_CHAR;
-            error = ((Context)view).getResources().getString(R.string.char_pass_signup);
-            idView = idViewPass;
         } else if (!_pass.equals(_pass2)){
             result = ISignUpMvp.DIFFERENT_PASS;
             error = ((Context)view).getResources().getString(R.string.different_pass_signup);
@@ -101,7 +103,7 @@ public class SignUpPresenter implements ISignUpMvp.Presenter{
             } else { //If there is no error
                 error = "";
                 idView = IDVIEWCORRECT;
-                ((Activity)view).finish();
+                view.finish();
             }
         }
         //If there is an error, we set it on the view
