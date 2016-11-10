@@ -52,7 +52,7 @@ public class Login_Application extends Application {
         cal.set(Calendar.DAY_OF_MONTH, 20);
         Comment comment4 = new Comment(1,"Trump4President","1","En verdad no",cal.getTime());
         Comment comment5 = new Comment(1,"MikeLitoris","2","Claro que sí",cal.getTime());
-        Comment comment6 = new Comment(1,"HitlerWasntABadGuy","3","Yo tampoco opino lo mismo",cal.getTime());
+        Comment comment6 = new Comment(1,"HitlerWasntABadGuy","3","Yo no opino lo mismo",cal.getTime());
 
         this.comments.add(comment1);
         this.comments.add(comment2);
