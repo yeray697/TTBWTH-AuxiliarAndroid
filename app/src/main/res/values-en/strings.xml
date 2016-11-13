@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Take the bullfighter with the horns</string>
+    <string name="etPass_hint">Password</string>
+    <string name="etEmail_hint">Email</string>
+    <string name="btSubmit_text">Sign in</string>
+    <string name="btSignUp_text">Sign up</string>
+    <string name="tvNonRegister1_text">Or you can continue without registering by pressing</string>
+    <string name="tvNonRegister2_text">here</string>
+    <string name="tvForgotPass_text">Have you forgotten password?</string>
+    <string name="etEmailSingUp_hint">Enter an email</string>
+    <string name="etPassSingUp_hint">Enter a password</string>
+    <string name="etPassAgainSingUp_hint">Enter the password again</string>
+    <string name="etBirthdaySignUp_hint">Select your date of birth</string>
+    <string name="tvGemderSignUp_text">Gender</string>
+    <string name="rbGenderMaleSignUp_text">Male</string>
+    <string name="rbGenderFemaleSignUp_text">Female</string>
+    <string name="rbGenderOtherSignUp_text">Other</string>
+    <string name="etUserSingUp_hint">Enter a username</string>
+    <string name="btSignUpActivity_text">Sign up</string>
+    <string name="datetimepicker_cancel">Cancel</string>
+    <string name="datetimepicker_ok">OK</string>
+    <string name="title_activity_new_">New</string>
+    <string name="etComment_New_hint">Comment...</string>
+    <string name="tvComments_New_text">Comments</string>
+    <string name="action_search_user_title">Search user</string>
+    <string name="action_settings_title">Options</string>
+    <string name="action_about_me_title">About...</string>
+    <string name="action_login_title">Log in</string>
+    <string name="action_close_session_title">Sign off</string>
+    <string name="tvAbout_text">Application created by Yeray Ruiz Juárez as an end-of-course project at IES Portada Alta, Málaga</string>
+    <string name="action_support_title">Support</string>
+    <string name="pref_notifications_summary">Notifications</string>
+    <string name="pref_notifications_title">Show news notifications</string>
+    <string name="pref_category_general_title">General</string>
+    <string name="pref_category_privacy_title">Privacy</string>
+    <string name="pref_show_email_summary">Show the email on your profile so people can see it</string>
+    <string name="pref_show_email_title">Show email</string>
+    <string name="pref_show_gender_summary">Show the gender in your profile for people to see</string>
+    <string name="pref_show_gender_title">Show gender</string>
+    <string name="pref_show_birthday_summary">Show date of birth on your profile for people to see</string>
+    <string name="pref_show_birthday_title">Show date of birth</string>
+</resources>
