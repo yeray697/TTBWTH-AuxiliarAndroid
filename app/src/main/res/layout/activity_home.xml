@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    tools:context="com.phile.yrj.takethebullfighterwiththehorns.Main_Activity"
+    tools:context="com.phile.yrj.takethebullfighterwiththehorns.Home_Activity"
     android:layout_height="match_parent">
     <!--<android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

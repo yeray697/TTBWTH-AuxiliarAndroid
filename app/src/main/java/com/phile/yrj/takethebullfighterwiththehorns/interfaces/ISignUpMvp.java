@@ -26,7 +26,7 @@ public interface ISignUpMvp {
     int MAXUSER_LENGTH = 16;
     int MINPASS_LENGTH = 5;
     int MAXPASS_LENGTH = 20;
-    //TODO password regular expesion
+
     String USER_REGEX = "^[a-z0-9_-]{"+MINUSER_LENGTH+","+MAXUSER_LENGTH+"}$";
 
     interface View{

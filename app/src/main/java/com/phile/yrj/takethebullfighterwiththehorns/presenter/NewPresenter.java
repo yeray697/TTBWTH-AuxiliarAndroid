@@ -27,7 +27,7 @@ public class NewPresenter implements INewMvp.Presenter {
         String user = ((Login_Application)((Context)view).getApplicationContext()).getUser().getUsername();
         Comment aux = new Comment(new Random().nextInt()*300,
                 user,
-                String.valueOf(idnew),
+                idnew,
                 comment,
                 Calendar.getInstance().getTime());
         ((Login_Application)((Context) view).getApplicationContext()).addComment(aux);

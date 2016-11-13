@@ -13,11 +13,11 @@ import java.util.Date;
 public class Comment {
     private int id;
     private String username;
-    private String idnew;
+    private int idnew;
     private String message;
     private Date date;
 
-    public Comment(int id, String username, String idnew, String message, Date date){
+    public Comment(int id, String username, int idnew, String message, Date date){
         this.id = id;
         this.username = username;
         this.idnew = idnew;
@@ -43,11 +43,11 @@ public class Comment {
             this.username = iduser;
     }
 
-    public String getIdnew() {
+    public int getIdnew() {
         return this.idnew;
     }
 
-    public void setIdnew(String idnew) {
+    public void setIdnew(int idnew) {
         if(this.idnew != idnew)
             this.idnew = idnew;
     }

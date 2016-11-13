@@ -1,6 +1,5 @@
 package com.phile.yrj.takethebullfighterwiththehorns;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -124,7 +123,7 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
 
     @Override
     public void login() {
-        Intent intent = new Intent(this,Main_Activity.class);
+        Intent intent = new Intent(this,Home_Activity.class);
         this.startActivity(intent);
     }
 }

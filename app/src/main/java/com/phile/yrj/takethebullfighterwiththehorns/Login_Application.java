@@ -44,15 +44,15 @@ public class Login_Application extends Application {
         cal.set(Calendar.YEAR, 2014);
         cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         cal.set(Calendar.DAY_OF_MONTH, 20);
-        Comment comment1 = new Comment(1,"Juan05","1","Peaso noticia",cal.getTime());
-        Comment comment2 = new Comment(1,"Paco515","2","Ya ves",cal.getTime());
-        Comment comment3 = new Comment(1,"elbarto","3","Opino lo mismo",cal.getTime());
+        Comment comment1 = new Comment(1,"Juan05",1,"Peaso noticia",cal.getTime());
+        Comment comment2 = new Comment(1,"Paco515",2,"Ya ves",cal.getTime());
+        Comment comment3 = new Comment(1,"elbarto",3,"Opino lo mismo",cal.getTime());
         cal.set(Calendar.YEAR, 2014);
         cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         cal.set(Calendar.DAY_OF_MONTH, 20);
-        Comment comment4 = new Comment(1,"Trump4President","1","En verdad no",cal.getTime());
-        Comment comment5 = new Comment(1,"MikeLitoris","2","Claro que sí",cal.getTime());
-        Comment comment6 = new Comment(1,"HitlerWasntABadGuy","3","Yo no opino lo mismo",cal.getTime());
+        Comment comment4 = new Comment(1,"Trump4President",1,"En verdad no",cal.getTime());
+        Comment comment5 = new Comment(1,"MikeLitoris",2,"Claro que sí",cal.getTime());
+        Comment comment6 = new Comment(1,"HitlerWasntABadGuy",3,"Yo no opino lo mismo",cal.getTime());
 
         this.comments.add(comment1);
         this.comments.add(comment2);
@@ -77,7 +77,7 @@ public class Login_Application extends Application {
     public ArrayList<Comment> getComments(int idnew) {
         ArrayList<Comment> auxList = new ArrayList<>();
         for (Comment auxComment: this.comments) {
-            if (auxComment.getIdnew().equals(String.valueOf(idnew))){
+            if (auxComment.getIdnew() == idnew){
                 auxList.add(auxComment);
             }
         }
@@ -87,5 +87,9 @@ public class Login_Application extends Application {
         //TODO adding it to database
         this.comments.add(comment);
         return true;
+    }
+
+    public void closeSession() {
+        user = null;
     }
 }
