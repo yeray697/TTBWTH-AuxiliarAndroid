@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.phile.yrj.takethebullfighterwiththehorns.adapter.NewsAdapter;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
+
+import java.util.Collections;
 
 /**
  * Created by yeray697 on 7/11/16.
@@ -18,6 +24,7 @@ import com.phile.yrj.takethebullfighterwiththehorns.model.New;
 
 public class NewsTab_Fragment extends ListFragment {
     NewsAdapter adapter;
+    boolean order = false;
 
     @Nullable
     @Override
@@ -25,19 +32,48 @@ public class NewsTab_Fragment extends ListFragment {
         View v = inflater.inflate(R.layout.fragment_news_tab, container,false);
         adapter = new NewsAdapter(getActivity().getApplicationContext());
         updateList();
+        setHasOptionsMenu(true);
         return v;
     }
 
     private void updateList(){
         setListAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        sortNews();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+
         New newAux = ((New) getListView().getItemAtPosition(position));
         Intent intent = new Intent(getActivity().getApplicationContext(), New_Activity.class);
         intent.putExtra("new", newAux);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.action_sort_by_date:
+                sortNews();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void sortNews() {
+        if (order){
+            adapter.sort(New.ASC_DATE_COMPARATOR);
+        } else  {
+            adapter.sort(New.DESC_DATE_COMPARATOR);
+        }
+        order = !order;
+        adapter.notifyDataSetChanged();
     }
 }

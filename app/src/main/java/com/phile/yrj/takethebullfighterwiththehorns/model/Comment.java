@@ -2,6 +2,7 @@ package com.phile.yrj.takethebullfighterwiththehorns.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -16,6 +17,19 @@ public class Comment {
     private int idnew;
     private String message;
     private Date date;
+
+    public static final Comparator<Comment> ASC_DATE_COMPARATOR = new Comparator<Comment>() {
+        @Override
+        public int compare(Comment o1, Comment o2) {
+            return o1.getDate().compareTo(o2.getDate());
+        }
+    };
+    public static final Comparator<Comment> DESC_DATE_COMPARATOR = new Comparator<Comment>() {
+        @Override
+        public int compare(Comment o1, Comment o2) {
+            return -1 * o1.getDate().compareTo(o2.getDate());
+        }
+    };
 
     public Comment(int id, String username, int idnew, String message, Date date){
         this.id = id;

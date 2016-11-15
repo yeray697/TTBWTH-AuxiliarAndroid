@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.phile.yrj.takethebullfighterwiththehorns.adapter.PagerAdapter;
 
 public class Home_Activity extends AppCompatActivity {
-
+    TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class Home_Activity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Noticias"));
         tabLayout.addTab(tabLayout.newTab().setText("Ranking"));
         tabLayout.addTab(tabLayout.newTab().setText("Galería"));
@@ -67,6 +67,12 @@ public class Home_Activity extends AppCompatActivity {
             user_logged = true;
         login.setVisible(!user_logged);
         signup.setVisible(user_logged);
+
+        MenuItem ordernews = menu.findItem(R.id.action_sort_by_date);
+        boolean newsactived = false;
+        if (tabLayout.getSelectedTabPosition() == 0)
+            user_logged = true;
+        ordernews.setVisible(user_logged);
         return true;
     }
 
@@ -78,6 +84,7 @@ public class Home_Activity extends AppCompatActivity {
                 intent = new Intent(Home_Activity.this,Settings_Activity.class);
                 startActivity(intent);
                 break;
+
             case R.id.action_support:
                 Toast.makeText(this, "Sin implementar aún", Toast.LENGTH_SHORT).show();
                 break;
@@ -89,10 +96,14 @@ public class Home_Activity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.action_login:
+                intent = new Intent (Home_Activity.this,Login_Activity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.action_close_session:
                 ((Login_Application)getApplicationContext()).closeSession();
+                intent = new Intent (Home_Activity.this,Login_Activity.class);
+                startActivity(intent);
                 finish();
                 break;
         }

@@ -13,6 +13,7 @@ import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.model.Comment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class CommentsAdapterRecycler extends RecyclerView.Adapter<CommentsAdapte
 
     List<Comment> comments;
     Context context;
+    boolean order = true;
 
     public CommentsAdapterRecycler(Context context, int idnew){
         this.context = context;
@@ -80,6 +82,15 @@ public class CommentsAdapterRecycler extends RecyclerView.Adapter<CommentsAdapte
             Toast.makeText(v.getContext(), tvName.getText()+": on long click", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    public void sort() {
+        if (order){
+            Collections.sort(comments, Comment.ASC_DATE_COMPARATOR);
+        } else {
+            Collections.sort(comments, Comment.DESC_DATE_COMPARATOR);
+        }
+        order = !order;
     }
 }
 

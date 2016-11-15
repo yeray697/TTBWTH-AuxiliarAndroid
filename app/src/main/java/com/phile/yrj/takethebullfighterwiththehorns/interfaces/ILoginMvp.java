@@ -20,5 +20,7 @@ public interface ILoginMvp {
         void validateCredentials(String email, String pass);
         int databaseLogin(String email, String pass);
         void nonPassLogin();
+
+        void isUserSet();
     }
 }

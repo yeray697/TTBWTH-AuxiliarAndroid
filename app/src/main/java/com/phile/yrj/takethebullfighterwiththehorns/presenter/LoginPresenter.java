@@ -1,6 +1,7 @@
 package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.phile.yrj.takethebullfighterwiththehorns.Login_Application;
@@ -25,6 +26,7 @@ public class LoginPresenter implements ILoginMvp.Presenter{
         this.view = view;
         idViewEmail = R.id.tilEmail_Login;
         idViewPass = R.id.tilPass_Login;
+
     }
     @Override
     public void validateCredentials(String email, String pass) {
@@ -55,8 +57,6 @@ public class LoginPresenter implements ILoginMvp.Presenter{
             } else { //If there is no error
                 error = "";
                 idView = IDVIEWCORRECT;
-                //TODO Open a new activity
-                //((Login_Application)((Context)view).getApplicationContext()).setUser(new User(_email, _pass));
                 view.login();
             }
         }
@@ -74,6 +74,7 @@ public class LoginPresenter implements ILoginMvp.Presenter{
         //TODO Database connection
         if (correct){
             //TODO set user in context
+
             ((Login_Application)((Context)view).getApplicationContext()).setUser(new User(1, email,email, pass));
         } else { //Incorrect and/or error
             if (error) { //Connection error
@@ -88,5 +89,14 @@ public class LoginPresenter implements ILoginMvp.Presenter{
     @Override
     public void nonPassLogin() {
         view.login();
+    }
+
+    @Override
+    public void isUserSet() {
+        String email = ((Login_Application)((Context)view).getApplicationContext()).getEmailIfExists();
+        String pass = ((Login_Application)((Context)view).getApplicationContext()).getPassIfExists();
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)) {
+            validateCredentials(email,pass);
+        }
     }
 }

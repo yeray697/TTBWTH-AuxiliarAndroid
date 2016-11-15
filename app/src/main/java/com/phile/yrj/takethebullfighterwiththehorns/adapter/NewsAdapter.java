@@ -19,6 +19,8 @@ import com.phile.yrj.takethebullfighterwiththehorns.model.New;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by yeray697 on 7/11/16.
@@ -61,6 +63,8 @@ public class NewsAdapter extends ArrayAdapter<New> {
 
         return item;
     }
+
+
     /**
      * Internal classh that contains XML file widgets
      */

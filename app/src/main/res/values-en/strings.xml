@@ -40,4 +40,5 @@
     <string name="pref_show_gender_title">Show gender</string>
     <string name="pref_show_birthday_summary">Show date of birth on your profile for people to see</string>
     <string name="pref_show_birthday_title">Show date of birth</string>
+    <string name="action_sort_by_date_title">Sort by date</string>
 </resources>

@@ -39,4 +39,5 @@
     <string name="pref_show_gender_title">Mostrar género</string>
     <string name="pref_show_birthday_summary">Muestra la fecha de nacimiento en tu perfil para que lo vea la gente</string>
     <string name="pref_show_birthday_title">Mostrar fecha de nacimiento</string>
+    <string name="action_sort_by_date_title">Ordenar por fecha</string>
 </resources>

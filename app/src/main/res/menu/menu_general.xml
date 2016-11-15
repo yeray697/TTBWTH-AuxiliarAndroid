@@ -6,6 +6,10 @@
         android:id="@+id/action_search_user"
         app:showAsAction="always"
         android:title="@string/action_search_user_title"/>
+    <item android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:id="@+id/action_sort_by_date"
+        app:showAsAction="always"
+        android:title="@string/action_sort_by_date_title"/>
     <item android:id="@+id/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never"

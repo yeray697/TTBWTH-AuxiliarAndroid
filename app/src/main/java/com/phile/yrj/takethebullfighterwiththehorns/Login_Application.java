@@ -1,6 +1,7 @@
 package com.phile.yrj.takethebullfighterwiththehorns;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import com.phile.yrj.takethebullfighterwiththehorns.model.Comment;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
@@ -18,9 +19,12 @@ public class Login_Application extends Application {
     private User user;
     private ArrayList<New> news;
     private ArrayList<Comment> comments;
+    SharedPreferences pref;
+    boolean isClosing = false;
     @Override
     public void onCreate() {
         super.onCreate();
+        pref = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
         //3 sample news
         news = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
@@ -62,6 +66,8 @@ public class Login_Application extends Application {
         this.comments.add(comment6);
     }
 
+
+
     public User getUser() {
         return user;
     }
@@ -69,6 +75,14 @@ public class Login_Application extends Application {
     public void setUser(User user) {
         if (this.user != user)
             this.user = user;
+        if (user != null) {
+            pref.edit().putString("email", user.getEmail()).apply();
+            pref.edit().putString("pass", user.getPassword()).apply();
+            isClosing = false;
+        } else {
+            pref.edit().clear().apply();
+            isClosing = true;
+        }
     }
 
     public ArrayList<New> getNews() {
@@ -90,6 +104,18 @@ public class Login_Application extends Application {
     }
 
     public void closeSession() {
-        user = null;
+        setUser(null);
+    }
+
+    public String getEmailIfExists() {
+        return pref.getString("email",null);
+    }
+
+    public String getPassIfExists() {
+        return pref.getString("pass",null);
+    }
+
+    public boolean isClosing() {
+        return isClosing;
     }
 }

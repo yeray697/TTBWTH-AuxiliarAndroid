@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -19,6 +20,19 @@ public class New implements Parcelable{
     private String body;
     private Date date;
     private String imgUrl;
+
+    public static final Comparator<New> ASC_DATE_COMPARATOR = new Comparator<New>() {
+        @Override
+        public int compare(New o1, New o2) {
+            return o1.date.compareTo(o2.date);
+        }
+    };
+    public static final Comparator<New> DESC_DATE_COMPARATOR = new Comparator<New>() {
+        @Override
+        public int compare(New o1, New o2) {
+            return -1 * o1.date.compareTo(o2.date);
+        }
+    };
 
     public static final Parcelable.Creator<New> CREATOR
             = new Parcelable.Creator<New>() {

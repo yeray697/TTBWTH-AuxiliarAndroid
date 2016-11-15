@@ -1,10 +1,13 @@
 package com.phile.yrj.takethebullfighterwiththehorns;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -32,8 +35,10 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         //Setting presenter
         presenter = new LoginPresenter(this);
+        presenter.isUserSet();
         //Setting controls
         tilEmail = (TextInputLayout) findViewById(R.id.tilEmail_Login);
         tilPass = (TextInputLayout) findViewById(R.id.tilPass_Login);
@@ -94,7 +99,8 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
         tvForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startActivity(browserIntent);
             }
         });
         tvNonRegister.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +129,12 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
 
     @Override
     public void login() {
+        if (etEmail != null)
+            etEmail.setText("");
+        if (etPass != null)
+            etPass.setText("");
         Intent intent = new Intent(this,Home_Activity.class);
         this.startActivity(intent);
+        finish();
     }
 }
