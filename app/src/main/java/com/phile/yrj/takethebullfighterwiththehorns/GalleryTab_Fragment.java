@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by yeray697 on 7/11/16.
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
  */
-
 public class GalleryTab_Fragment extends Fragment{
     @Nullable
     @Override

@@ -3,7 +3,6 @@ package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 import android.content.Context;
 
 import com.phile.yrj.takethebullfighterwiththehorns.Login_Application;
-import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.INewMvp;
 import com.phile.yrj.takethebullfighterwiththehorns.model.Comment;
 
@@ -11,9 +10,10 @@ import java.util.Calendar;
 import java.util.Random;
 
 /**
- * Created by yeray697 on 7/11/16.
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
  */
-
 public class NewPresenter implements INewMvp.Presenter {
     private INewMvp.View view;
 

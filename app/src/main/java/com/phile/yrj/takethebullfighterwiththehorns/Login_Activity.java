@@ -1,14 +1,12 @@
 package com.phile.yrj.takethebullfighterwiththehorns;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
+import com.phile.yrj.takethebullfighterwiththehorns.model.CustomTextWatcher;
+import com.phile.yrj.takethebullfighterwiththehorns.model.ErrorClass;
 import com.phile.yrj.takethebullfighterwiththehorns.presenter.LoginPresenter;
 
 /**
  * @author Yeray Ruiz Juárez
- * @version 1.0
+ * @version 1.1
  * Created on 04/11/16
  */
 public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
@@ -35,11 +35,7 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        //Setting presenter
-        presenter = new LoginPresenter(this);
-        presenter.isUserSet();
-        //Setting controls
+        //Setting viewsç
         tilEmail = (TextInputLayout) findViewById(R.id.tilEmail_Login);
         tilPass = (TextInputLayout) findViewById(R.id.tilPass_Login);
         etEmail = (EditText) findViewById(R.id.etEmail);
@@ -48,93 +44,106 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
         btSignUp = (Button) findViewById(R.id.btSignUp_Login);
         tvForgotPass = (TextView) findViewById(R.id.tvForgotPass_Login);
         tvNonRegister = (TextView) findViewById(R.id.tvNonRegister2_Login);
-
-        etEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilEmail.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        etPass.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilPass.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        //Setting view's additional configuration
+        etPass.setTransformationMethod(new PasswordTransformationMethod());
+        //Setting listeners
+        etEmail.addTextChangedListener(new CustomTextWatcher(tilEmail));
+        etPass.addTextChangedListener(new CustomTextWatcher(tilPass));
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail.getText().toString(),
-                        pass = etPass.getText().toString();
-                presenter.validateCredentials(email,pass);
+                login(true);
             }
         });
         btSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login_Activity.this, SignUp_Activity.class);
-                startActivity(intent);
+                signUp();
             }
         });
         tvForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                startActivity(browserIntent);
+                forgotPass();
             }
         });
         tvNonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.nonPassLogin();
+                login(false);
             }
         });
+        //Setting presenter
+        presenter = new LoginPresenter(this);
+        presenter.isUserSet();
     }
 
-
+    /**
+     * Show an error on the device
+     * @param messageError ErrorClass that will be showed
+     * @param idView View where error will be showed. idView = ErrorClass.VIEW_TOAST will show the error on a Toast
+     */
     @Override
     public void setMessageError(String messageError, int idView) {
         switch (idView){
-            case R.id.tilPass_Login:
-                tilPass.setError(messageError);
-                break;
-            case R.id.tilEmail_Login:
-                tilEmail.setError(messageError);
-                break;
-            case LoginPresenter.IDVIEWTOAST:
+            case ErrorClass.VIEW_TOAST:
                 Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                ((TextInputLayout)findViewById(idView)).setError(messageError);
                 break;
         }
     }
 
+    /**
+     * Start the main activity
+     */
     @Override
-    public void login() {
-        if (etEmail != null)
-            etEmail.setText("");
-        if (etPass != null)
-            etPass.setText("");
+    public void startLoginActivity() {
         Intent intent = new Intent(this,Home_Activity.class);
         this.startActivity(intent);
         finish();
+    }
+
+    /**
+     * Set credentials passed as variable.
+     * That credentials are set if user was logged the last time he used the app
+     * @param email User's email
+     * @param pass User's pass
+     */
+    @Override
+    public void setCredentials(String email, String pass) {
+        etEmail.setText(email);
+        etPass.setText(pass);
+    }
+
+    /**
+     * Try to log in. If it is right, we will access to the next Activity
+     * @param logged If it is false, you will not be logged, you will be a non registered user
+     */
+    public void login(boolean logged){
+        if (logged) {
+            String email = etEmail.getText().toString(),
+                    pass = etPass.getText().toString();
+            presenter.login(email, pass);
+        } else {
+            presenter.nonPassLogin();
+        }
+    }
+
+    /**
+     * Start the activity to sign up a new user
+     */
+    public void signUp(){
+        Intent intent = new Intent(Login_Activity.this, SignUp_Activity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Method that redirect to a web to recover an account
+     */
+    private void forgotPass() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+        startActivity(browserIntent);
     }
 }

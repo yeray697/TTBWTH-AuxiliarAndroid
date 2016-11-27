@@ -5,11 +5,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+/**
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
+ */
 import com.phile.yrj.takethebullfighterwiththehorns.adapter.PagerAdapter;
 
 public class Home_Activity extends AppCompatActivity {

@@ -1,102 +1,133 @@
 package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.phile.yrj.takethebullfighterwiththehorns.Login_Application;
 import com.phile.yrj.takethebullfighterwiththehorns.R;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
+import com.phile.yrj.takethebullfighterwiththehorns.model.ErrorClass;
 import com.phile.yrj.takethebullfighterwiththehorns.model.User;
+import com.phile.yrj.takethebullfighterwiththehorns.utils.Utils;
 
 /**
  * @author Yeray Ruiz Juárez
- * @version 1.0
+ * @version 1.1
  * Created on 04/11/16
  */
 
 public class LoginPresenter implements ILoginMvp.Presenter{
-    ILoginMvp.View view;
+    private ILoginMvp.View view;
+    private Context context;
     private int idViewEmail;
     private int idViewPass;
-    public static final int IDVIEWCORRECT = -1;
-    public static final int IDVIEWTOAST = -2;
 
+    /**
+     * Constructor
+     * @param view MVP's View
+     */
     public LoginPresenter(ILoginMvp.View view){
         this.view = view;
-        idViewEmail = R.id.tilEmail_Login;
-        idViewPass = R.id.tilPass_Login;
+        this.context = (Context)view;
+        this.idViewEmail = R.id.tilEmail_Login;
+        this.idViewPass = R.id.tilPass_Login;
 
     }
-    @Override
-    public void validateCredentials(String email, String pass) {
-        String _email = email,
-                _pass = pass;
-        String error;
-        int idView;
-        int result;
 
-        if (TextUtils.isEmpty(_email)){
-            result = ILoginMvp.EMAIL_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_email_login);
-            idView = idViewEmail;
-        } else if (TextUtils.isEmpty(_pass)){
-            result = ILoginMvp.PASS_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_pass_login);
-            idView = idViewPass;
+    /**
+     * Method used to log in with credentials passed
+     * @param email User's email
+     * @param pass User's pass
+     */
+    @Override
+    public void login(String email, String pass) {
+        ErrorClass error = new ErrorClass();
+        if (Utils.isNetworkAvailable(context)) {
+             error = validateCredentials(email, pass);
         } else {
-            //Fields are not empty, so now we check with database
-            result = databaseLogin(email,pass);
-            if (result == ILoginMvp.INCORRECT){
-                error = ((Context)view).getResources().getString(R.string.incorrect_login);
-                idView = IDVIEWTOAST;
-            } else if (result == ILoginMvp.CONNECTIONERROR){
-                //There is not connection
-                error = ((Context)view).getResources().getString(R.string.no_connection_login);
-                idView = IDVIEWTOAST;
-            } else { //If there is no error
-                error = "";
-                idView = IDVIEWCORRECT;
-                view.login();
+            error.setCode(ErrorClass.USER_CONNECTION_ERROR);
+            error.setIdView(ErrorClass.VIEW_TOAST);
+        }
+
+        if (!error.isThereAnError()) {
+            view.startLoginActivity();
+        } else  {
+            view.setMessageError(ErrorClass.getMessageError(context, error.getCode()), error.getIdView());
+        }
+    }
+
+    /**
+     * Method that check if credentials are valid
+     * @param email User's email
+     * @param pass User's pass
+     * @return Return an ErrorClass. If it is all right, return null
+     */
+    private ErrorClass validateCredentials(String email, String pass) {
+        ErrorClass error = new ErrorClass();
+        if (TextUtils.isEmpty(email)) {
+            error.setCode(ErrorClass.EMAIL_EMPTY);
+            error.setIdView(idViewEmail);
+        } else if (TextUtils.isEmpty(pass)) {
+            error.setCode(ErrorClass.PASS_EMPTY);
+            error.setIdView(idViewPass);
+        } else {
+            error.setCode(databaseLogin(email, pass));
+            if (error.getCode() == ErrorClass.INCORRECT) {
+                error.setIdView(ErrorClass.VIEW_TOAST);
+            } else if (error.getCode() == ErrorClass.SERVER_CONNECTION_ERROR) {
+                error.setIdView(ErrorClass.VIEW_TOAST);
+            } else {
+                error.setIfThereIsAnError(false);
             }
         }
-        //If there is an error, we set it on the view
-        if (result != ILoginMvp.CORRECT) {
-            view.setMessageError(error, idView);
-        }
+        return error;
     }
 
-    @Override
-    public int databaseLogin(String email, String pass) {
-        int result = ILoginMvp.CORRECT;
-        boolean correct = true;
+    /**
+     * Attempt to connect with database
+     * @param email User's email
+     * @param pass User's pass
+     * @return Return an int with an ErrorClass code
+     */
+    private int databaseLogin(String email, String pass) {
+        int result = ErrorClass.CORRECT;
+        int correct = ErrorClass.CORRECT;
         boolean error = false;
         //TODO Database connection
-        if (correct){
-            //TODO set user in context
+        if (correct == result){
+            //TODO set user in context PROPERLY
 
             ((Login_Application)((Context)view).getApplicationContext()).setUser(new User(1, email,email, pass));
-        } else { //Incorrect and/or error
+        } else { //TODO Incorrect and/or error
             if (error) { //Connection error
-                result = ILoginMvp.CONNECTIONERROR;
+                result = ErrorClass.SERVER_CONNECTION_ERROR;
             } else {
-                result = ILoginMvp.INCORRECT;
+                result = ErrorClass.INCORRECT;
             }
         }
         return result;
     }
 
+    /**
+     * Method that log in without credentials
+     */
     @Override
     public void nonPassLogin() {
-        view.login();
+        ((Login_Application)((Context)view).getApplicationContext()).setUser(null);
+        view.startLoginActivity();
     }
 
+    /**
+     * Check if the user was logged the last time he used the app
+     * If true, it tries to log in as usual
+     */
     @Override
     public void isUserSet() {
         String email = ((Login_Application)((Context)view).getApplicationContext()).getEmailIfExists();
         String pass = ((Login_Application)((Context)view).getApplicationContext()).getPassIfExists();
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)) {
-            validateCredentials(email,pass);
+            view.setCredentials(email,pass);
+            login(email,pass);
         }
     }
 }

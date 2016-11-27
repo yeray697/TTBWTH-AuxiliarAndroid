@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map linked="true">
+    <entry key="1">incorrect_login</entry>
+    <entry key="2">server_no_connection_login</entry>
+    <entry key="3">user_no_connection_login</entry>
+
+    <entry key="10">data_empty</entry>
+    <entry key="11">invalid_email_signup</entry>
+    <entry key="12">invalid_pass_signup</entry>
+    <entry key="13">data_empty_birthday_signup</entry>
+    <entry key="14">data_empty_gender_signup</entry>
+    <entry key="15">different_pass_signup</entry>
+    <entry key="16">user_length_signup</entry>
+    <entry key="17">pass_length_signup</entry>
+    <entry key="18">user_used_signup</entry>
+    <entry key="19">email_used_signup</entry>
+    <entry key="20">user_chars_signup</entry>
+
+    <entry key="30">data_empty</entry>
+    <entry key="31">data_empty</entry>
+</map>

@@ -1,127 +1,146 @@
 package com.phile.yrj.takethebullfighterwiththehorns.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.phile.yrj.takethebullfighterwiththehorns.R;
-import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ISignUpMvp;
+import com.phile.yrj.takethebullfighterwiththehorns.model.ErrorClass;
+import com.phile.yrj.takethebullfighterwiththehorns.utils.Utils;
+
 
 /**
- * Created by yeray697 on 5/11/16.
+ * @author Yeray Ruiz Juárez
+ * @version 1.1
+ * Created on 04/11/16
  */
-
 public class SignUpPresenter implements ISignUpMvp.Presenter{
     ISignUpMvp.View view;
+    Context context;
     private int idViewUser;
     private int idViewEmail;
     private int idViewPass;
     private int idViewPass2;
     private int idViewBirthday;
     private int idViewGender;
-    public static final int IDVIEWCORRECT = -1;
-    public static final int IDVIEWTOAST = -2;
 
+    /**
+     * Constructor
+     * @param view MVP's View
+     */
     public SignUpPresenter(ISignUpMvp.View view) {
         this.view = view;
-        idViewUser = R.id.tilUser_SignUp;
-        idViewEmail = R.id.tilEmail_SignUp;
-        idViewPass = R.id.tilPass_SignUp;
-        idViewPass2 = R.id.tilPassAgain_SignUp;
-        idViewBirthday = R.id.tilBirthday_SignUp;
-        idViewGender = IDVIEWTOAST;
+        this.idViewUser = R.id.tilUser_SignUp;
+        this.idViewEmail = R.id.tilEmail_SignUp;
+        this.idViewPass = R.id.tilPass_SignUp;
+        this.idViewPass2 = R.id.tilPassAgain_SignUp;
+        this.idViewBirthday = R.id.tilBirthday_SignUp;
+        this.idViewGender = ErrorClass.VIEW_TOAST;
+        this.context = (Context) view;
     }
 
+    /**
+     * Method that sign up a new user if it is possible
+     * @param user User's username
+     * @param email User's email
+     * @param pass User's password
+     * @param passAgain User's password
+     * @param birthday User's birthday
+     * @param gender User's gender
+     */
     @Override
-    public void validateCredentials(String user, String email, String pass, String pass2, String birthday, char gender) {
-        String _user = user,
-                _email = email,
-                _pass = pass,
-                _pass2 = pass2,
-                _birthday = birthday;
-        char _gender = gender;
-        String error;
-        int idView;
-        int result;
-
-        //TODO separate "If"s by fields, to show the maximum of errors
-        if (TextUtils.isEmpty(_user)){
-            result = ISignUpMvp.USER_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_signup);
-            idView = idViewUser;
-        } else if (_user.length() < ISignUpMvp.MINUSER_LENGTH || _user.length() > ISignUpMvp.MAXUSER_LENGTH){
-            result = ISignUpMvp.USER_LENGTH;
-            error = ((Context)view).getResources().getString(R.string.user_length_signup);
-            idView = idViewUser;
-        } else if (!_user.matches(ISignUpMvp.USER_REGEX)){
-            result = ISignUpMvp.USER_CHARS;
-            error = ((Context)view).getResources().getString(R.string.user_chars_signup);
-            idView = idViewUser;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(_email).matches()){
-            result = ISignUpMvp.EMAIL_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.invalid_email_signup);
-            idView = idViewEmail;
-        } else if (TextUtils.isEmpty(_pass)){
-            result = ISignUpMvp.PASS1_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_signup);
-            idView = idViewPass;
-        } else if (_pass.length() < ISignUpMvp.MINPASS_LENGTH || _pass.length() > ISignUpMvp.MAXPASS_LENGTH){
-            result = ISignUpMvp.PASS_LENGTH;
-            error = ((Context)view).getResources().getString(R.string.pass_length_signup);
-            idView = idViewPass;
-        } else if (TextUtils.isEmpty(_pass2)){
-            result = ISignUpMvp.PASS2_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_signup);
-            idView = idViewPass2;
-        } else if (!_pass.equals(_pass2)){
-            result = ISignUpMvp.DIFFERENT_PASS;
-            error = ((Context)view).getResources().getString(R.string.different_pass_signup);
-            idView = idViewPass2;
-        } else if (TextUtils.isEmpty(_birthday)){
-            result = ISignUpMvp.BIRTHDAY_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_birthday_signup);
-            idView = idViewBirthday;
-        } else if (TextUtils.isEmpty(String.valueOf(_gender))){
-            result = ISignUpMvp.GENDER_EMPTY;
-            error = ((Context)view).getResources().getString(R.string.data_empty_gender_signup);
-            idView = idViewGender;
+    public void signUp(String user, String email, String pass, String passAgain, String birthday, char gender) {
+        ErrorClass error = new ErrorClass();
+        if (Utils.isNetworkAvailable(context)) {
+            error = validateCredentials(user, email, pass, passAgain, birthday, gender);
         } else {
-            //Fields are not empty, so now we try to register in the database
-            result = databaseSignUp(_user,_email,_pass,_pass2,_birthday,_gender);
-            if (result == ISignUpMvp.USER_USED){
-                error = ((Context)view).getResources().getString(R.string.user_used_signup);
-                idView = idViewUser;
-            } else if (result == ISignUpMvp.EMAIL_USED){
-                error = ((Context)view).getResources().getString(R.string.email_used_signup);
-                idView = idViewEmail;
-            } else if (result == ISignUpMvp.CONNECTIONERROR){
-                //There is not connection
-                error = ((Context)view).getResources().getString(R.string.no_connection_signup);
-                idView = IDVIEWTOAST;
-            } else { //If there is no error
-                error = "";
-                idView = IDVIEWCORRECT;
+            error.setCode(ErrorClass.USER_CONNECTION_ERROR);
+            error.setIdView(ErrorClass.VIEW_TOAST);
+        }
+
+        if (!error.isThereAnError()) {
+            view.finish();
+        } else  {
+            view.setMessageError(ErrorClass.getMessageError(context, error.getCode()), error.getIdView());
+        }
+    }
+    /**
+     * Method that sign up a new user if it is possible
+     * @param user User's username
+     * @param email User's email
+     * @param pass User's password
+     * @param passAgain User's password
+     * @param birthday User's birthday
+     * @param gender User's gender
+     */
+    private ErrorClass validateCredentials(String user, String email, String pass, String passAgain, String birthday, char gender) {
+        ErrorClass error = new ErrorClass();
+        if (TextUtils.isEmpty(user)){
+            error.setCode(ErrorClass.USER_EMPTY);
+            error.setIdView(idViewUser);
+        } else if (user.length() < ISignUpMvp.MINUSER_LENGTH || user.length() > ISignUpMvp.MAXUSER_LENGTH){
+            error.setCode(ErrorClass.USER_LENGTH);
+            error.setIdView(idViewUser);
+        } else if (!user.matches(ISignUpMvp.USER_REGEX)){
+            error.setCode(ErrorClass.USER_CHARS);
+            error.setIdView(idViewUser);
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            error.setCode(ErrorClass.INVALID_EMAIL);
+            error.setIdView(idViewEmail);
+        } else if (TextUtils.isEmpty(pass)){
+            error.setCode(ErrorClass.INVALID_PASS);
+            error.setIdView(idViewPass);
+        } else if (pass.length() < ISignUpMvp.MINPASS_LENGTH || pass.length() > ISignUpMvp.MAXPASS_LENGTH){
+            error.setCode(ErrorClass.PASS_LENGTH);
+            error.setIdView(idViewPass);
+        } else if (TextUtils.isEmpty(passAgain)){
+            error.setCode(ErrorClass.INVALID_PASS);
+            error.setIdView(idViewPass2);
+        } else if (!pass.equals(passAgain)){
+            error.setCode(ErrorClass.DIFFERENT_PASS);
+            error.setIdView(idViewPass2);
+        } else if (TextUtils.isEmpty(birthday)){
+            error.setCode(ErrorClass.BIRTHDAY_EMPTY);
+            error.setIdView(idViewBirthday);
+        } else if (TextUtils.isEmpty(String.valueOf(gender))){
+            error.setCode(ErrorClass.GENDER_EMPTY);
+            error.setIdView(idViewGender);
+        } else {
+            error.setCode(databaseSignUp(user,email,pass,passAgain,birthday,gender));
+            if (error.getCode() == ErrorClass.USER_USED){
+                error.setIdView(idViewUser);
+            } else if (error.getCode() == ErrorClass.EMAIL_USED){
+                error.setIdView(idViewEmail);
+            } else if (error.getCode() == ErrorClass.SERVER_CONNECTION_ERROR){
+                error.setIdView(ErrorClass.VIEW_TOAST);
+            } else {
+                error.setIfThereIsAnError(false);
                 view.finish();
             }
         }
-        //If there is an error, we set it on the view
-        if (result != ILoginMvp.CORRECT) {
-            view.setMessageError(error, idView);
-        }
+        return error;
     }
 
-    @Override
+    /**
+     * Tries to sign up the user
+     * @param user User's username
+     * @param email User's email
+     * @param pass User's password
+     * @param passAgain User's password
+     * @param birthday User's birthday
+     * @param gender User's gender
+     * @return Return an int with an ErrorClass code
+     */
     public int databaseSignUp(String user, String email, String pass, String passAgain, String birthday, char gender) {
-        int result = ISignUpMvp.CORRECT;
+        int result = ErrorClass.CORRECT;
         boolean correct = true;
         //TODO Database connection
         if (!correct) { //Incorrect and/or error
             //TODO: check with database if email or username is already in use
-            result = ISignUpMvp.CONNECTIONERROR;
-            result = ISignUpMvp.USER_USED;
-            result = ISignUpMvp.EMAIL_USED;
+            result = ErrorClass.SERVER_CONNECTION_ERROR;
+            result = ErrorClass.USER_USED;
+            result = ErrorClass.EMAIL_USED;
         }
         return result;
     }

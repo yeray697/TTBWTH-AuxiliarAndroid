@@ -7,14 +7,14 @@ import com.phile.yrj.takethebullfighterwiththehorns.model.Comment;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
 import com.phile.yrj.takethebullfighterwiththehorns.model.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by usuario on 4/11/16.
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
  */
-
 public class Login_Application extends Application {
     private User user;
     private ArrayList<New> news;

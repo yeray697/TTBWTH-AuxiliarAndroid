@@ -5,6 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
+ */
 public class About_Activity extends AppCompatActivity {
 
     @Override

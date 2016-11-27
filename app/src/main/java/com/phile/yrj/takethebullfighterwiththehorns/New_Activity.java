@@ -24,6 +24,11 @@ import com.phile.yrj.takethebullfighterwiththehorns.presenter.NewPresenter;
 
 import java.util.ArrayList;
 
+/**
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
+ */
 public class New_Activity extends AppCompatActivity implements INewMvp.View{
     INewMvp.Presenter presenter;
     TextView tvTitle, tvBody, tvDate;

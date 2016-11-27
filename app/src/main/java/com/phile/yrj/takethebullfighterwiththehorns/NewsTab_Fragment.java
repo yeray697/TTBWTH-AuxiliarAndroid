@@ -11,17 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.phile.yrj.takethebullfighterwiththehorns.adapter.NewsAdapter;
 import com.phile.yrj.takethebullfighterwiththehorns.model.New;
 
-import java.util.Collections;
-
 /**
- * Created by yeray697 on 7/11/16.
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
  */
-
 public class NewsTab_Fragment extends ListFragment {
     NewsAdapter adapter;
     boolean order = false;

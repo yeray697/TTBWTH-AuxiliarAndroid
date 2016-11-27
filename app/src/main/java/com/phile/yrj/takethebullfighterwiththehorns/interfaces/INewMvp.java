@@ -1,11 +1,10 @@
 package com.phile.yrj.takethebullfighterwiththehorns.interfaces;
 
-import com.phile.yrj.takethebullfighterwiththehorns.model.Comment;
-
 /**
- * Created by yeray697 on 7/11/16.
+ * @author Yeray Ruiz Juárez
+ * @version 1.0
+ * Created on 04/11/16
  */
-
 public interface INewMvp {
     interface View{
         void setMessageError(String messageError);
