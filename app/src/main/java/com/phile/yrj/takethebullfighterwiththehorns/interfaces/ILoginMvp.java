@@ -10,7 +10,7 @@ public interface ILoginMvp {
     interface View{
         /**
          * Show an error on the device
-         * @param messageError ErrorClass that will be showed
+         * @param messageError Error that will be showed
          * @param idView View where error will be showed. idView = ErrorClass.VIEW_TOAST will show the error on a Toast
          */
         void setMessageError(String messageError, int idView);
