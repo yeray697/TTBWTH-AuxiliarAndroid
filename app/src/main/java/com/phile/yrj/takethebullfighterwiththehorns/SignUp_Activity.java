@@ -1,25 +1,31 @@
 package com.phile.yrj.takethebullfighterwiththehorns;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ISignUpMvp;
 import com.phile.yrj.takethebullfighterwiththehorns.model.CustomTextWatcher;
 import com.phile.yrj.takethebullfighterwiththehorns.model.ErrorClass;
 import com.phile.yrj.takethebullfighterwiththehorns.presenter.SignUpPresenter;
+import com.phile.yrj.takethebullfighterwiththehorns.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,6 +77,17 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
         //Setting view's additional configuration
         etPass.setTransformationMethod(new PasswordTransformationMethod());
         etPassAgain.setTransformationMethod(new PasswordTransformationMethod());
+        etPassAgain.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId){
+                    case EditorInfo.IME_ACTION_NEXT:
+                        showDatePickerDialog();
+                        break;
+                }
+                return false;
+            }
+        });
         etBirthday.setFocusable(false);
         etBirthday.setClickable(true);
         etBirthday.setLongClickable(false);
@@ -78,7 +95,7 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
         etBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               datePickerDialog.show();
+                showDatePickerDialog();
             }
         });
         tilUser.getEditText().addTextChangedListener(new CustomTextWatcher(tilUser));
@@ -86,14 +103,7 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
         tilPassAgain.getEditText().addTextChangedListener(new CustomTextWatcher(tilPassAgain));
         tilEmail.getEditText().addTextChangedListener(new CustomTextWatcher(tilEmail));
         tilBirthday.getEditText().addTextChangedListener(new CustomTextWatcher(tilBirthday));
-        etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    datePickerDialog.show();
-                }
-            }
-        });
+
         btSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {signUp();
@@ -102,9 +112,19 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUpMvp.Vie
     }
 
     /**
+     * Method that show a datePickerDialog.
+     * If the keyboard is showed, it will be hidden
+     */
+    private void showDatePickerDialog(){
+        Utils.hideKeyboard(SignUp_Activity.this);
+        datePickerDialog.show();
+    }
+
+    /**
      * Method that try to sign up the new user
      */
     private void signUp() {
+        Utils.hideKeyboard(SignUp_Activity.this);
         String user = etUser.getText().toString()
                 ,email = etEmail.getText().toString()
                 ,pass1 = etPass.getText().toString()

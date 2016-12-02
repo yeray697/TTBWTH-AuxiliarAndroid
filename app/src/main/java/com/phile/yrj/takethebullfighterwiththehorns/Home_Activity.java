@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,25 +15,28 @@ import android.widget.Toast;
  * @version 1.0
  * Created on 04/11/16
  */
-import com.phile.yrj.takethebullfighterwiththehorns.adapter.PagerAdapter;
+import com.phile.yrj.takethebullfighterwiththehorns.adapter.CustomPagerAdapter;
 
 public class Home_Activity extends AppCompatActivity {
     TabLayout tabLayout;
+    ViewPager viewPager;
+    CustomPagerAdapter adapter;
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        setSupportActionBar(toolbar);
+        tabLayout = (TabLayout) findViewById(R.id.tablayout_home);
         tabLayout.addTab(tabLayout.newTab().setText("Noticias"));
         tabLayout.addTab(tabLayout.newTab().setText("Ranking"));
         tabLayout.addTab(tabLayout.newTab().setText("Galería"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
+        viewPager = (ViewPager) findViewById(R.id.viewpager_home);
+        adapter = new CustomPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
@@ -75,8 +79,8 @@ public class Home_Activity extends AppCompatActivity {
         MenuItem ordernews = menu.findItem(R.id.action_sort_by_date);
         boolean newsactived = false;
         if (tabLayout.getSelectedTabPosition() == 0)
-            user_logged = true;
-        ordernews.setVisible(user_logged);
+            newsactived = true;
+        ordernews.setVisible(newsactived);
         return true;
     }
 
@@ -112,5 +116,16 @@ public class Home_Activity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (((Login_Application)getApplicationContext()).getUser() == null) {
+            Intent intent = new Intent(Home_Activity.this, Login_Activity.class);
+            startActivity(intent);
+            finish();
+        } else
+            super.onBackPressed();
     }
 }

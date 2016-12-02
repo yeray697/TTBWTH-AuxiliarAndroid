@@ -7,7 +7,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import com.phile.yrj.takethebullfighterwiththehorns.interfaces.ILoginMvp;
 import com.phile.yrj.takethebullfighterwiththehorns.model.CustomTextWatcher;
 import com.phile.yrj.takethebullfighterwiththehorns.model.ErrorClass;
 import com.phile.yrj.takethebullfighterwiththehorns.presenter.LoginPresenter;
+import com.phile.yrj.takethebullfighterwiththehorns.utils.Utils;
 
 /**
  * @author Yeray Ruiz Juárez
@@ -73,6 +76,15 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
                 login(false);
             }
         });
+        etPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    login(true);
+                }
+                return false;
+            }
+        });
         //Setting presenter
         presenter = new LoginPresenter(this);
         presenter.isUserSet();
@@ -122,6 +134,7 @@ public class Login_Activity extends AppCompatActivity implements ILoginMvp.View{
      * @param logged If it is false, you will not be logged, you will be a non registered user
      */
     public void login(boolean logged){
+        Utils.hideKeyboard(Login_Activity.this);
         if (logged) {
             String email = etEmail.getText().toString(),
                     pass = etPass.getText().toString();

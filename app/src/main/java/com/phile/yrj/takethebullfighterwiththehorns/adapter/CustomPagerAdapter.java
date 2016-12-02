@@ -2,36 +2,36 @@ package com.phile.yrj.takethebullfighterwiththehorns.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.phile.yrj.takethebullfighterwiththehorns.GalleryTab_Fragment;
 import com.phile.yrj.takethebullfighterwiththehorns.NewsTab_Fragment;
 import com.phile.yrj.takethebullfighterwiththehorns.RankingTab_Fragment;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class CustomPagerAdapter extends FragmentPagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public CustomPagerAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
+        this.mNumOfTabs = numOfTabs;
     }
 
     @Override
     public Fragment getItem(int position) {
-
+        Fragment tab = null;
         switch (position) {
             case 0:
-                NewsTab_Fragment tab1 = new NewsTab_Fragment();
-                return tab1;
+                tab = new NewsTab_Fragment();
+                break;
             case 1:
-                RankingTab_Fragment tab2 = new RankingTab_Fragment();
-                return tab2;
+                tab = new RankingTab_Fragment();
+                break;
             case 2:
-                GalleryTab_Fragment tab3 = new GalleryTab_Fragment();
-                return tab3;
-            default:
-                return null;
+                tab = new GalleryTab_Fragment();
+                break;
         }
+        return tab;
     }
 
     @Override
